@@ -1,4 +1,8 @@
+# dev requirements
 pytest
 pytest-cov
-coverage
 pylint
+
+# libraries
+cherrypy
+pymongo
