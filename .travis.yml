@@ -1,3 +1,7 @@
+branches:
+    only:
+        - master
+        - develop
 language: python
 python:
     - "2.7"
@@ -7,5 +11,5 @@ before_install:
     - pip install python-coveralls
 script:
     - make test
-after_succes:
+after_success:
     - coveralls
