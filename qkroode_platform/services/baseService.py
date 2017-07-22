@@ -1,9 +1,5 @@
-import cherrypy
 
 class BaseService(object):
-
-    exposed = True
-    _cp_config = { 'tools.json_out.on': True }
 
     def DELETE(self):
         return {"status": 405, "message":"Method not implemented."}

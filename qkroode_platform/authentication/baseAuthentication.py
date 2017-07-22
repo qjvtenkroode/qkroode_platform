@@ -3,7 +3,6 @@ import getpass
 import hashlib
 import json
 
-import cherrypy
 import sys
 
 PASSWD_FILE = './etc/passwd'
@@ -51,11 +50,8 @@ def read_hashes(conf):
         json_hashes = open(conf, 'r')
         try:
             hashes = json.load(json_hashes)
-        except ValueError:
-            hashes = []
         except:
             hashes = []
-            raise cherrypy.HTTPError('500', 'Something went terribly wrong..')
         json_hashes.close()
         return hashes
     except IOError:
@@ -68,9 +64,8 @@ def write_hashes(conf, hashes):
     with open(conf, 'w') as json_hashes:
         try:
             json_hashes.write(json.dumps(hashes))
-        except:
-            hashes = []
-            raise cherrypy.HTTPError('500', 'Something went terribly wrong..')
+        #except:
+        # TODO write exception
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Generate or delete an entry in passwd')
