@@ -17,7 +17,7 @@ def validate_user(real, username, password):
         return False
 
 def add(username, password=None):
-    if password is None:
+    if password is None: # pragma: no cover
         password = getpass.getpass('Password?: ')
         if not password:
             print('no password entered')
@@ -25,18 +25,18 @@ def add(username, password=None):
     pwhash = hashlib.sha512(password).hexdigest()
     data = {username: pwhash}
     new_hashes = read_hashes(PASSWD_FILE)
-    if not new_hashes:
+    if not new_hashes: # pragma: no cover
         new_hashes = data
     else:
         new_hashes.update(data)
     if write_hashes(PASSWD_FILE, new_hashes):
         return True
-    else:
+    else: # pragma: no cover
         return False
 
 def delete(username):
     hashes = read_hashes(PASSWD_FILE)
-    if not hashes:
+    if not hashes: # pragma: no cover
         return False
     else:
         try:
@@ -66,10 +66,10 @@ def write_hashes(conf, hashes):
         try:
             json_hashes.write(json.dumps(hashes))
             return True
-        except:
+        except IOError:
             return False
 
-if __name__ == '__main__':
+if __name__ == '__main__': # pragma: no cover
     parser = argparse.ArgumentParser(description='Generate or delete an entry in passwd')
     parser.add_argument('username', metavar='username', nargs=1,
                         help='username of the affected user')
