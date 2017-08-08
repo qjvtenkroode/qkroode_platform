@@ -38,5 +38,5 @@ test-pylint:
 
 test-pytest:
 	@echo "Running pytest:\n"
-	PYTHONPATH=./qkroode_platform $(VENV)/bin/py.test --cov=qkroode_platform --cov-report term-missing
+	PYTHONPATH=./qkroode_platform $(VENV)/bin/py.test --cov=qkroode_platform --cov-report term-missing -v
 	@echo "\n"
