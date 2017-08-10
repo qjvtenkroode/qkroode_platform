@@ -1,19 +1,21 @@
+from flask.views import MethodView
 
-class BaseService(object):
+from serviceException import ServiceException
 
-    def DELETE(self):
-        return {"status": 405, "message":"Method not implemented."}
+class BaseService(MethodView):
 
-    def GET(self):
-        return {"status": 405, "message":"Method not implemented."}
+    def delete(self):
+        raise ServiceException("Method not implemented.", status_code=501)
 
-    def HEAD(self):
-        return {"status": 405, "message":"Method not implemented."}
+    def get(self):
+        raise ServiceException("Method not implemented.", status_code=501)
 
-    def POST(self):
-        return {"status": 405, "message":"Method not implemented."}
+    def head(self):
+        raise ServiceException("Method not implemented.", status_code=501)
 
-    def PUT(self):
-        return {"status": 405, "message":"Method not implemented."}
+    def post(self):
+        raise ServiceException("Method not implemented.", status_code=501)
 
+    def put(self):
+        raise ServiceException("Method not implemented.", status_code=501)
 
