@@ -3,9 +3,9 @@ import os
 import authentication.baseAuthentication as baseAuthentication
 
 def test_validate_user():
-    valid_user = baseAuthentication.validate_user('localhost','admin','changeme')
+    valid_user = baseAuthentication.validate_user('admin','changeme')
     assert valid_user == True
-    invalid_user = baseAuthentication.validate_user('locahost','admin','changemenow')
+    invalid_user = baseAuthentication.validate_user('admin','changemenow')
     assert invalid_user == False
 
 def test_add():

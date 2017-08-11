@@ -8,7 +8,7 @@ import sys
 PASSWD_FILE = './etc/passwd'
 
 
-def validate_user(real, username, password):
+def validate_user(username, password):
     pwhash = hashlib.sha512(password).hexdigest()
     hashes = read_hashes(PASSWD_FILE)
     if(pwhash == hashes.get(username, None)):
