@@ -2,8 +2,9 @@ import argparse
 import getpass
 import hashlib
 import json
-
 import sys
+from functools import wraps
+from flask import request, Response
 
 PASSWD_FILE = './etc/passwd'
 
@@ -68,6 +69,21 @@ def write_hashes(conf, hashes):
             return True
         except IOError:
             return False
+
+def authenticate():
+    return Response(
+            'Could not verify your access level for that URL.\n'
+            'You have to login with proper credentials', 401,
+            {'WWW-Authenticate': 'Basic realm="Login Required"'})
+
+def requires_auth(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        auth = request.authorization
+        if not auth or not validate_user(auth.username, auth.password):
+            return authenticate()
+        return f(*args, **kwargs)
+    return decorated
 
 if __name__ == '__main__': # pragma: no cover
     parser = argparse.ArgumentParser(description='Generate or delete an entry in passwd')
