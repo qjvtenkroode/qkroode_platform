@@ -4,7 +4,7 @@ import hashlib
 import json
 import sys
 from functools import wraps
-from flask import request, Response
+from flask import request, jsonify
 
 PASSWD_FILE = './etc/passwd'
 
@@ -71,10 +71,12 @@ def write_hashes(conf, hashes):
             return False
 
 def authenticate():
-    return Response(
-            'Could not verify your access level for that URL.\n'
-            'You have to login with proper credentials', 401,
-            {'WWW-Authenticate': 'Basic realm="Login Required"'})
+    message = {'message': "Unauthorized access attempt."}
+    resp = jsonify(message)
+    resp.mimetype = 'application/json' 
+    resp.status_code = 401
+    resp.headers['WWW-Authenticate'] = 'Basic realm="Login Required"'
+    return resp
 
 def requires_auth(f):
     @wraps(f)
